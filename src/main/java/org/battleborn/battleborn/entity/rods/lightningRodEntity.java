@@ -1,6 +1,7 @@
 package org.battleborn.battleborn.entity.rods;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.Entity;
@@ -83,6 +84,13 @@ public class lightningRodEntity extends AbstractArrow {
     @Override
     public void tick() {
         super.tick();
+        if(this.level().isRaining()) {
+            this.level().addParticle(ParticleTypes.ELECTRIC_SPARK,
+                    this.level().getRandom().nextFloat() * (0.3f - (-0.3f)) + blockPosition().getX(),
+                    this.level().getRandom().nextFloat() * (0.3f - (-0.3f)) + blockPosition().getY(),
+                    this.level().getRandom().nextFloat() * (0.3f - (-0.3f)) + blockPosition().getZ(),
+                    0.2f, 0.2f, 0.2f);
+        }
     }
 
 
