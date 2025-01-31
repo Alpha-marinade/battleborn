@@ -15,7 +15,7 @@ public class EntityReg {
             DeferredRegister.create(ForgeRegistries.ENTITY_TYPES,MODID);
 
     public static final RegistryObject<EntityType<lightningRodEntity>> LIGHTNING_ROD =
-            ENTITY_TYPES.register("lightning_rod", () -> EntityType.Builder.<lightningRodEntity>of(lightningRodEntity::new, MobCategory.MISC)
+            ENTITY_TYPES.register("lightning_rod", () -> EntityType.Builder.<lightningRodEntity>of(lightningRodEntity::new, MobCategory.MISC).fireImmune()
                     .sized(0.5f, 0.5f).build("lightning_rod"));
 
 

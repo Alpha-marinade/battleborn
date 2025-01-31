@@ -1,6 +1,8 @@
 package org.battleborn.battleborn.entity.rods;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LightningBolt;
@@ -39,21 +41,13 @@ public class lightningRodEntity extends AbstractArrow {
 
     }
 
-
+    protected SoundEvent getDefaultHitGroundSoundEvent() {
+        return SoundEvents.TRIDENT_HIT_GROUND;
+    }
 
     @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
-    }
-
-    @Override
-    protected void onHitBlock(BlockHitResult hitResult) {
-        if(!this.level().isClientSide){
-            this.level().broadcastEntityEvent(this,(byte)(3));
-            this.level().setBlock(blockPosition(), Blocks.LIGHTNING_ROD.defaultBlockState(),3);
-            this.remove(RemovalReason.KILLED);
-        }
-        super.onHitBlock(hitResult);
     }
 
     @Override
@@ -63,7 +57,7 @@ public class lightningRodEntity extends AbstractArrow {
 
     @Override
     protected boolean canHitEntity(Entity p_36743_) {
-        return true;
+        return false;
     }
 
     @Override
@@ -84,22 +78,6 @@ public class lightningRodEntity extends AbstractArrow {
             }
         }
 
-    }
-
-    @Override
-    protected void onHitEntity(EntityHitResult hitResult) {
-        if(!this.level().isClientSide){
-            this.level().broadcastEntityEvent(this,(byte)(3));
-            if(this.level().getBlockState(hitResult.getEntity().blockPosition()).isAir()){
-                this.level().setBlock(hitResult.getEntity().blockPosition(), Blocks.LIGHTNING_ROD.defaultBlockState(),3);
-            }
-            else{
-                this.level().addFreshEntity(new ItemEntity(this.level(),hitResult.getEntity().getX(),hitResult.getEntity().getY(),hitResult.getEntity().getZ(),Items.LIGHTNING_ROD.getDefaultInstance()));
-            }
-
-
-        }
-        super.onHitEntity(hitResult);
     }
 
     @Override
