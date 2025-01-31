@@ -1,5 +1,8 @@
 package org.battleborn.battleborn.mixin;
 
+import com.google.common.collect.Lists;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
@@ -25,6 +28,7 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+import java.util.List;
 import java.util.function.Predicate;
 
 import static net.minecraft.world.item.ProjectileWeaponItem.ARROW_OR_FIREWORK;
@@ -45,10 +49,12 @@ public class crossbowMixin extends ProjectileWeaponItem implements Vanishable {
     }
     @Inject(method = "getShootingPower",at=@At("HEAD"), cancellable = true)
     private static void power(ItemStack stack, CallbackInfoReturnable<Float> cir){
-
-        if (stack.is(Items.LIGHTNING_ROD)) { cir.setReturnValue(0F);
+       List<ItemStack> list = getChargedProjectiles(stack);
+        ItemStack itemstack = list.get(0);
+      System.out.println();
+            cir.setReturnValue(0F);
             System.out.println("hi");
-        }
+
 
 
     }
@@ -121,6 +127,21 @@ public class crossbowMixin extends ProjectileWeaponItem implements Vanishable {
             abstractarrow.setPierceLevel((byte) i);
         }
         return abstractarrow;
+    }
+    private static List<ItemStack> getChargedProjectiles(ItemStack p_40942_) {
+        List<ItemStack> list = Lists.newArrayList();
+        CompoundTag compoundtag = p_40942_.getTag();
+        if (compoundtag != null && compoundtag.contains("ChargedProjectiles", 9)) {
+            ListTag listtag = compoundtag.getList("ChargedProjectiles", 10);
+            if (listtag != null) {
+                for(int i = 0; i < listtag.size(); ++i) {
+                    CompoundTag compoundtag1 = listtag.getCompound(i);
+                    list.add(ItemStack.of(compoundtag1));
+                }
+            }
+        }
+
+        return list;
     }
 
 }
