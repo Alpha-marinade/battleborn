@@ -58,7 +58,7 @@ public class lightningRodEntity extends AbstractArrow {
 
     @Override
     protected ItemStack getPickupItem() {
-        return new ItemStack(Items.TIPPED_ARROW);
+        return new ItemStack(Items.LIGHTNING_ROD);
     }
 
     @Override
@@ -69,6 +69,7 @@ public class lightningRodEntity extends AbstractArrow {
     @Override
     protected void onHit(HitResult result) {
         if(!this.level().isClientSide){
+            super.onHit(result);
             if(this.level().isRaining()){
                 Entity lightning = new LightningBolt(EntityType.LIGHTNING_BOLT, this.level());
                 if(!this.level().getBlockState(new BlockPos(blockPosition().getX(),blockPosition().getY()-1,blockPosition().getZ())).is(Tags.Blocks.GLASS)){
@@ -78,10 +79,11 @@ public class lightningRodEntity extends AbstractArrow {
                     lightning.setPos(blockPosition().getX(),blockPosition().getY()-1,blockPosition().getZ());
                 }
 
+
                 this.level().addFreshEntity(lightning);
             }
         }
-        super.onHit(result);
+
     }
 
     @Override
@@ -104,5 +106,6 @@ public class lightningRodEntity extends AbstractArrow {
     public void tick() {
         super.tick();
     }
+
 
 }

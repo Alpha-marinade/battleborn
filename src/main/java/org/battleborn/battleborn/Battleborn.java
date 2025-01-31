@@ -103,8 +103,7 @@ public class Battleborn {
         public static void onClientSetup(FMLClientSetupEvent event) {
             EntityRenderers.register(EntityReg.LIGHTNING_ROD.get(), LightningRodRenderer::new);
 
-            event.enqueueWork(() ->
-            {
+            event.enqueueWork(() -> {
                 ItemProperties.register(Items.CROSSBOW,
                         ResourceLocation.fromNamespaceAndPath("minecraft", "lightning_rod"), (stack, level, living, id) -> {
                             return CrossbowItem.isCharged(stack) && CrossbowItem.containsChargedProjectile(stack, Items.LIGHTNING_ROD) ? 1.0F : 0.0F;

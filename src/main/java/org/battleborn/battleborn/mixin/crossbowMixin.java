@@ -23,6 +23,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.function.Predicate;
 
@@ -41,6 +42,12 @@ public class crossbowMixin extends ProjectileWeaponItem implements Vanishable {
         return ARROW_OR_FIREWORK.or(itemStack -> {
             return itemStack.is(Items.LIGHTNING_ROD);
         });
+    }
+    @Inject(method = "getShootingPower",at=@At("HEAD"), cancellable = true)
+    private static void power(ItemStack stack, CallbackInfoReturnable<Float> cir){
+        if (stack.is(Items.LIGHTNING_ROD))
+          cir.setReturnValue(0.F);
+
     }
 
     @Override
