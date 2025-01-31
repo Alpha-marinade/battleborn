@@ -5,6 +5,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LightningBolt;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.entity.projectile.FireworkRocketEntity;
 import net.minecraft.world.entity.projectile.Projectile;
@@ -50,17 +51,6 @@ public class lightningRodEntity extends AbstractArrow {
         if(!this.level().isClientSide){
             this.level().broadcastEntityEvent(this,(byte)(3));
             this.level().setBlock(blockPosition(), Blocks.LIGHTNING_ROD.defaultBlockState(),3);
-            if(this.level().isRaining()){
-                Entity lightning = new LightningBolt(EntityType.LIGHTNING_BOLT, this.level());
-                if(!this.level().getBlockState(new BlockPos(blockPosition().getX(),blockPosition().getY()-1,blockPosition().getZ())).is(Tags.Blocks.GLASS)){
-                    lightning.setPos(blockPosition().getX(),blockPosition().getY(),blockPosition().getZ());
-                }
-                else {
-                    lightning.setPos(blockPosition().getX(),blockPosition().getY()-1,blockPosition().getZ());
-                }
-
-                this.level().addFreshEntity(lightning);
-            }
             this.remove(RemovalReason.KILLED);
         }
         super.onHitBlock(hitResult);
@@ -73,14 +63,41 @@ public class lightningRodEntity extends AbstractArrow {
 
     @Override
     protected boolean canHitEntity(Entity p_36743_) {
-        return false;
+        return true;
     }
 
     @Override
     protected void onHit(HitResult result) {
+        if(!this.level().isClientSide){
+            if(this.level().isRaining()){
+                Entity lightning = new LightningBolt(EntityType.LIGHTNING_BOLT, this.level());
+                if(!this.level().getBlockState(new BlockPos(blockPosition().getX(),blockPosition().getY()-1,blockPosition().getZ())).is(Tags.Blocks.GLASS)){
+                    lightning.setPos(blockPosition().getX(),blockPosition().getY(),blockPosition().getZ());
+                }
+                else {
+                    lightning.setPos(blockPosition().getX(),blockPosition().getY()-1,blockPosition().getZ());
+                }
+
+                this.level().addFreshEntity(lightning);
+            }
+        }
         super.onHit(result);
+    }
+
+    @Override
+    protected void onHitEntity(EntityHitResult hitResult) {
+        if(!this.level().isClientSide){
+            this.level().broadcastEntityEvent(this,(byte)(3));
+            if(this.level().getBlockState(hitResult.getEntity().blockPosition()).isAir()){
+                this.level().setBlock(hitResult.getEntity().blockPosition(), Blocks.LIGHTNING_ROD.defaultBlockState(),3);
+            }
+            else{
+                this.level().addFreshEntity(new ItemEntity(this.level(),hitResult.getEntity().getX(),hitResult.getEntity().getY(),hitResult.getEntity().getZ(),Items.LIGHTNING_ROD.getDefaultInstance()));
+            }
 
 
+        }
+        super.onHitEntity(hitResult);
     }
 
     @Override

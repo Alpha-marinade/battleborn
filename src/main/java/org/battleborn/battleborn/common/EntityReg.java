@@ -16,7 +16,7 @@ public class EntityReg {
 
     public static final RegistryObject<EntityType<lightningRodEntity>> LIGHTNING_ROD =
             ENTITY_TYPES.register("lightning_rod", () -> EntityType.Builder.<lightningRodEntity>of(lightningRodEntity::new, MobCategory.MISC)
-                    .sized(1f, 0.5f).build("lightning_rod"));
+                    .sized(0.5f, 0.5f).build("lightning_rod"));
 
 
     public static void register(IEventBus eventBus) {
