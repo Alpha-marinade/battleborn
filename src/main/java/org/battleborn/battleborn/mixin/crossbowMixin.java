@@ -85,7 +85,6 @@ public class crossbowMixin extends ProjectileWeaponItem implements Vanishable {
                 Vec3 vec31 = p_40896_.getUpVector(1.0F);
                 Quaternionf quaternionf = (new Quaternionf()).setAngleAxis((double) (p_40904_ * ((float) Math.PI / 180F)), vec31.x, vec31.y, vec31.z);
                 Vec3 vec3 = p_40896_.getViewVector(1.0F);
-                System.out.println(p_40896_.getName().toString());
                 Vector3f vector3f = vec3.toVector3f().rotate(quaternionf);
                 projectile.shoot((double) vector3f.x(), (double) vector3f.y(), (double) vector3f.z(), p_40902_, p_40903_);
             }
