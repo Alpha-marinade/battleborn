@@ -51,9 +51,12 @@ public class crossbowMixin extends ProjectileWeaponItem implements Vanishable {
     private static void power(ItemStack stack, CallbackInfoReturnable<Float> cir){
        List<ItemStack> list = getChargedProjectiles(stack);
         ItemStack itemstack = list.get(0);
-      System.out.println();
+        if (itemstack.is(Items.LIGHTNING_ROD)){
             cir.setReturnValue(0F);
-            System.out.println("hi");
+        }
+
+
+
 
 
 
