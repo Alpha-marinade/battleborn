@@ -3,12 +3,11 @@ package org.battleborn.battleborn;
 import com.mojang.logging.LogUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.EntityRenderers;
+import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.food.FoodProperties;
-import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.CreativeModeTabs;
-import net.minecraft.world.item.Item;
+import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockBehaviour;
@@ -73,6 +72,7 @@ public class Battleborn {
 
     private void commonSetup(final FMLCommonSetupEvent event) {
         /*
+
         if (Config.logDirtBlock) LOGGER.info("DIRT BLOCK >> {}", ForgeRegistries.BLOCKS.getKey(Blocks.DIRT));
 
         LOGGER.info(Config.magicNumberIntroduction + Config.magicNumber);
@@ -80,6 +80,7 @@ public class Battleborn {
         Config.items.forEach((item) -> LOGGER.info("ITEM >> {}", item.toString()));
 
          */
+
     }
 
     // Add the example block item to the building blocks tab
@@ -102,8 +103,13 @@ public class Battleborn {
         public static void onClientSetup(FMLClientSetupEvent event) {
             EntityRenderers.register(EntityReg.LIGHTNING_ROD.get(), LightningRodRenderer::new);
 
-            LOGGER.info("HELLO FROM CLIENT SETUP");
-            LOGGER.info("MINECRAFT NAME >> {}", Minecraft.getInstance().getUser().getName());
+            event.enqueueWork(() ->
+            {
+                ItemProperties.register(Items.CROSSBOW,
+                        ResourceLocation.fromNamespaceAndPath("minecraft", "lightning_rod"), (stack, level, living, id) -> {
+                            return CrossbowItem.isCharged(stack) && CrossbowItem.containsChargedProjectile(stack, Items.LIGHTNING_ROD) ? 1.0F : 0.0F;
+                        });
+            });
         }
     }
 }
