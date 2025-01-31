@@ -1,0 +1,15 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "org.battleborn.battleborn.mixin",
+  "compatibilityLevel": "JAVA_8",
+  "refmap": "battleborn.refmap.json",
+  "mixins": [
+    "crossbowMixin"
+  ],
+  "client": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
