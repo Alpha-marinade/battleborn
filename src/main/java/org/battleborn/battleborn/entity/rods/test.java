@@ -11,16 +11,12 @@ public class test {
     public static void reflectEntityView(blazeRodEntity entity, Direction blockFace) {
 
         Vec3 lookVec = entity.getLookAngle();
-
         Vec3 normal = new Vec3(blockFace.getStepX(), blockFace.getStepY(), blockFace.getStepZ());
 
         Vec3 vector3f = reflectVector(lookVec, normal);
-        Projectile projectile = new blazeRodEntity(entity.level(), entity.getOwner(), entity.getX(), entity.getY(), entity.getZ());
-        entity.remove(Entity.RemovalReason.KILLED);
-        projectile.shoot((double) vector3f.x(), (double) vector3f.y(), (double) vector3f.z(), 3.15f, 1f);
 
-        //entity.setYRot((float) Math.toDegrees(Math.atan2(reflectedVec.z, reflectedVec.x)) - 90.0F);
-        // entity.setXRot((float) Math.toDegrees(Math.asin(reflectedVec.y)));
+        entity.shoot((double) vector3f.x(), (double) vector3f.y(), (double) vector3f.z(), 3.15f, 1f);
+
     }
 
     private static Vec3 reflectVector(Vec3 incident, Vec3 normal) {
