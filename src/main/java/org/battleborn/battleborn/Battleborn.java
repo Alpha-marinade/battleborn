@@ -111,6 +111,12 @@ public class Battleborn {
                             return CrossbowItem.isCharged(stack) && CrossbowItem.containsChargedProjectile(stack, Items.LIGHTNING_ROD) ? 1.0F : 0.0F;
                         });
             });
+            event.enqueueWork(() -> {
+                ItemProperties.register(Items.CROSSBOW,
+                        ResourceLocation.fromNamespaceAndPath("minecraft", "blaze_rod"), (stack, level, living, id) -> {
+                            return CrossbowItem.isCharged(stack) && CrossbowItem.containsChargedProjectile(stack, Items.BLAZE_ROD) ? 1.0F : 0.0F;
+                        });
+            });
         }
     }
 }
