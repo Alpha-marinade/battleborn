@@ -15,7 +15,7 @@ public class test {
         Vec3 normal = new Vec3(blockFace.getStepX(), blockFace.getStepY(), blockFace.getStepZ());
 
         Vec3 vector3f = reflectVector(lookVec, normal);
-        Projectile projectile = new blazeRodEntity(entity.level(), entity.getOwner(), entity.getX(), entity.getY() - (double) 0.15F, entity.getZ());
+        Projectile projectile = new blazeRodEntity(entity.level(), entity.getOwner(), entity.getX(), entity.getY(), entity.getZ());
         entity.remove(Entity.RemovalReason.KILLED);
         projectile.shoot((double) vector3f.x(), (double) vector3f.y(), (double) vector3f.z(), 3.15f, 1f);
 
