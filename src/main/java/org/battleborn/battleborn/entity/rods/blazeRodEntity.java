@@ -47,15 +47,13 @@ public class blazeRodEntity  extends AbstractArrow {
     protected void onHitBlock(BlockHitResult hitResult) {
         super.onHitBlock(hitResult);
         Direction blockFace= hitResult.getDirection();
-        test.reflectEntityView(this,blockFace);
+
 
     }
 
     @Override
     public void tick() {
         super.tick();
-       // System.out.println(this.blockPosition().getX());
-        //System.out.println(this.blockPosition().getY());
-        //System.out.println(this.blockPosition().getZ());
+
     }
 }
