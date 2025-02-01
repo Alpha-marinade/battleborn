@@ -47,7 +47,7 @@ public class blazeRodEntity  extends AbstractArrow {
     protected void onHitBlock(BlockHitResult hitResult) {
         super.onHitBlock(hitResult);
         Direction blockFace= hitResult.getDirection();
-        // test.reflectEntityView(this,blockFace);
+        test.reflectEntityView(this,blockFace);
 
     }
 
