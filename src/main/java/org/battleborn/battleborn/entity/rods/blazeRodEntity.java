@@ -1,5 +1,6 @@
 package org.battleborn.battleborn.entity.rods;
 
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -9,6 +10,7 @@ import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.BlockHitResult;
 import org.battleborn.battleborn.common.EntityReg;
 
@@ -47,6 +49,7 @@ public class blazeRodEntity  extends AbstractArrow {
     protected void onHitBlock(BlockHitResult hitResult) {
         super.onHitBlock(hitResult);
         Direction blockFace= hitResult.getDirection();
+       FireWork(hitResult.getBlockPos().above());
     }
 
     @Override
@@ -59,6 +62,35 @@ public class blazeRodEntity  extends AbstractArrow {
     @Override
     public void tick() {
         super.tick();
+    }
+
+
+
+    public boolean setFire(BlockPos blockpos){
+        if (!this.level().getBlockState(blockpos.below()).isAir()){
+            if (this.level().getBlockState(blockpos).isAir()){
+                this.level().setBlockAndUpdate(blockpos,Blocks.FIRE.defaultBlockState());
+            }
+            return true;
+        }
+        return false;
+    }
+
+    public void FireWork(BlockPos center){
+        BlockPos angle1=center.west(2).north(2);
+        BlockPos angle2=center.east(2).south(2);
+        for (int i=angle1.getX(); i<=angle2.getX()-1;i++){
+            for(int k=angle1.getZ(); k<=angle2.getZ()-1;k++){
+                BlockPos pos=center;
+                boolean fire=false;
+                int y=center.getY();
+                while (!fire){
+                    pos = new BlockPos(i,y,k);
+                    fire= setFire(pos);
+                    y--;
+                }
+            }
+        }
 
     }
 }
