@@ -28,6 +28,7 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import org.battleborn.battleborn.common.EntityReg;
+import org.battleborn.battleborn.entity.client.BlazeRodRenderer;
 import org.battleborn.battleborn.entity.client.LightningRodRenderer;
 import org.slf4j.Logger;
 
@@ -102,6 +103,7 @@ public class Battleborn {
         @SubscribeEvent
         public static void onClientSetup(FMLClientSetupEvent event) {
             EntityRenderers.register(EntityReg.LIGHTNING_ROD.get(), LightningRodRenderer::new);
+            EntityRenderers.register(EntityReg.BLAZE_ROD.get(), BlazeRodRenderer::new);
 
             event.enqueueWork(() -> {
                 ItemProperties.register(Items.CROSSBOW,

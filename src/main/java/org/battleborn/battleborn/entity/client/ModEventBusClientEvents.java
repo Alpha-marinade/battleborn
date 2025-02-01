@@ -18,6 +18,7 @@ public class ModEventBusClientEvents {
     @SubscribeEvent
     public static void registerLayer(EntityRenderersEvent.RegisterLayerDefinitions event) {
         event.registerLayerDefinition(modelLayerReg.LIGHTNING_ROD_LAYER, lightning_rod::createBodyLayer);
+        event.registerLayerDefinition(modelLayerReg.BLAZE_ROD_LAYER, lightning_rod::createBodyLayer);
     }
 
     @SubscribeEvent

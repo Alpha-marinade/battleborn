@@ -8,5 +8,7 @@ import static org.battleborn.battleborn.Battleborn.MODID;
 public class modelLayerReg {
     public static final ModelLayerLocation LIGHTNING_ROD_LAYER = new ModelLayerLocation(
             new ResourceLocation(MODID, "lightning_rod_layer"), "main");
+    public static final ModelLayerLocation BLAZE_ROD_LAYER = new ModelLayerLocation(
+            new ResourceLocation(MODID, "blaze_rod_layer"), "main");
 
 }

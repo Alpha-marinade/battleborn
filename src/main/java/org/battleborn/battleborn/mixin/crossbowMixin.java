@@ -17,6 +17,7 @@ import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
+import org.battleborn.battleborn.entity.rods.blazeRodEntity;
 import org.battleborn.battleborn.entity.rods.lightningRodEntity;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
@@ -45,6 +46,8 @@ public class crossbowMixin extends ProjectileWeaponItem implements Vanishable {
     public Predicate<ItemStack> getAllSupportedProjectiles() {
         return ARROW_OR_FIREWORK.or(itemStack -> {
             return itemStack.is(Items.LIGHTNING_ROD);
+        }).or(itemStack -> {
+            return itemStack.is(Items.BLAZE_ROD);
         });
     }
     @Inject(method = "getShootingPower",at=@At("HEAD"), cancellable = true)
@@ -66,6 +69,8 @@ public class crossbowMixin extends ProjectileWeaponItem implements Vanishable {
     public Predicate<ItemStack> getSupportedHeldProjectiles() {
         return ARROW_OR_FIREWORK.or(itemStack -> {
             return itemStack.is(Items.LIGHTNING_ROD);
+        }).or(itemStack -> {
+            return itemStack.is(Items.BLAZE_ROD);
         });
     }
 
@@ -81,6 +86,7 @@ public class crossbowMixin extends ProjectileWeaponItem implements Vanishable {
         if (!p_40895_.isClientSide) {
             boolean flag = p_40899_.is(Items.FIREWORK_ROCKET);
             boolean flag2 = p_40899_.is(Items.LIGHTNING_ROD);
+            boolean flag3 = p_40899_.is(Items.BLAZE_ROD);
             Projectile projectile;
             if (flag) {
                 projectile = new FireworkRocketEntity(p_40895_, p_40899_, p_40896_, p_40896_.getX(), p_40896_.getEyeY() - (double) 0.15F, p_40896_.getZ(), true);
@@ -90,9 +96,14 @@ public class crossbowMixin extends ProjectileWeaponItem implements Vanishable {
 
                 }
                 else {
-                    projectile = getArrow(p_40895_, p_40896_, p_40898_, p_40899_);
-                    if (p_40901_ || p_40904_ != 0.0F) {
-                        ((AbstractArrow) projectile).pickup = AbstractArrow.Pickup.CREATIVE_ONLY;
+                    if (flag3) {
+                        projectile = new blazeRodEntity(p_40895_, p_40896_, p_40896_.getX(), p_40896_.getEyeY() - (double) 0.15F, p_40896_.getZ());
+
+                    } else {
+                        projectile = getArrow(p_40895_, p_40896_, p_40898_, p_40899_);
+                        if (p_40901_ || p_40904_ != 0.0F) {
+                            ((AbstractArrow) projectile).pickup = AbstractArrow.Pickup.CREATIVE_ONLY;
+                        }
                     }
                 }
             }
@@ -105,6 +116,8 @@ public class crossbowMixin extends ProjectileWeaponItem implements Vanishable {
                 Quaternionf quaternionf = (new Quaternionf()).setAngleAxis((double) (p_40904_ * ((float) Math.PI / 180F)), vec31.x, vec31.y, vec31.z);
                 Vec3 vec3 = p_40896_.getViewVector(1.0F);
                 Vector3f vector3f = vec3.toVector3f().rotate(quaternionf);
+                System.out.println( p_40902_);
+                System.out.println(p_40903_);
                 projectile.shoot((double) vector3f.x(), (double) vector3f.y(), (double) vector3f.z(), p_40902_, p_40903_);
             }
 
