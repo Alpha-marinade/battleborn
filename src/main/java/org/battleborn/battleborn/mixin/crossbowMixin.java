@@ -143,7 +143,6 @@ public class crossbowMixin extends ProjectileWeaponItem implements Vanishable {
                 }
             }
         }
-
         return list;
     }
 

@@ -13,6 +13,6 @@ public class blazeRodEntity  extends AbstractArrow {
 
     @Override
     protected ItemStack getPickupItem() {
-        return new ItemStack(Items.LIGHTNING_ROD);
+        return new ItemStack(Items.BLAZE_POWDER);
     }
 }

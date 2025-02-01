@@ -33,7 +33,6 @@ public class lightningRodEntity extends AbstractArrow {
         super(EntityReg.LIGHTNING_ROD.get(),level);
         this.setPos(x,y,z);
         this.setDeltaMovement(this.random.triangle(0.0D, 0.002297D), 0.05D, this.random.triangle(0.0D, 0.002297D));
-
     }
 
     public lightningRodEntity(Level level, @Nullable Entity owner, double x, double y, double z) {
@@ -41,7 +40,7 @@ public class lightningRodEntity extends AbstractArrow {
         this.setOwner(owner);
 
     }
-
+    @Override
     protected SoundEvent getDefaultHitGroundSoundEvent() {
         return SoundEvents.TRIDENT_HIT_GROUND;
     }
@@ -73,12 +72,9 @@ public class lightningRodEntity extends AbstractArrow {
                 else {
                     lightning.setPos(blockPosition().getX(),blockPosition().getY()-1,blockPosition().getZ());
                 }
-
-
                 this.level().addFreshEntity(lightning);
             }
         }
-
     }
 
     @Override
