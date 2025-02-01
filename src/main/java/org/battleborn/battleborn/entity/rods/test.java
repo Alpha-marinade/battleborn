@@ -12,10 +12,8 @@ public class test {
 
         Vec3 lookVec = entity.getLookAngle();
         Vec3 normal = new Vec3(blockFace.getStepX(), blockFace.getStepY(), blockFace.getStepZ());
-
         Vec3 vector3f = reflectVector(lookVec, normal);
-
-        entity.shoot((double) vector3f.x(), (double) vector3f.y(), (double) vector3f.z(), 3.15f, 1f);
+        entity.shoot((double) vector3f.x(), (double) vector3f.y(), (double) vector3f.z(), 1.6f, 1f);
 
     }
 
