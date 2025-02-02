@@ -64,8 +64,8 @@ public class blazeRodEntity  extends rodEntity {
         }
 
     @Override
-    protected boolean canHitEntity(Entity p_36743_) {
-        return true;
+    protected boolean canHitEntity(Entity entity) {
+        return !(entity instanceof blazeRodEntity);
     }
 
     @Override
