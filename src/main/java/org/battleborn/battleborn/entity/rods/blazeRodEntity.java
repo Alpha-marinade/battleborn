@@ -2,6 +2,7 @@ package org.battleborn.battleborn.entity.rods;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.Entity;
@@ -12,6 +13,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.EntityHitResult;
 import org.battleborn.battleborn.common.EntityReg;
 import org.battleborn.battleborn.entity.client.ModEventBusClientEvents;
 import javax.annotation.Nullable;
@@ -38,7 +40,39 @@ public class blazeRodEntity  extends rodEntity {
 
     @Override
     public void onFirstBlockHit(BlockHitResult hitResult){
-        FireWork(hitResult.getBlockPos().above());
+        FireWork(hitResult.getBlockPos().above(),2);
+    }
+
+    @Override
+    public void BeforeFirstHit() {
+        super.BeforeFirstHit();
+            this.level().addParticle(ParticleTypes.FLAME,
+                    this.level().getRandom().nextFloat() * (0.3f - (-0.3f)) + blockPosition().getX(),
+                    this.level().getRandom().nextFloat() * (0.3f - (-0.3f)) + blockPosition().getY(),
+                    this.level().getRandom().nextFloat() * (0.3f - (-0.3f)) + blockPosition().getZ(),
+                    0.2f, 0.2f, 0.2f);
+            boolean fire=false;
+            int y=0;
+            while(!fire){
+                BlockPos pos=new BlockPos(this.blockPosition().getX(),this.blockPosition().getY()-y,this.blockPosition().getZ());
+                fire=setFire(pos);
+                y++;
+                if(y-8==0){fire=true;}
+                System.out.println(pos);
+            }
+        }
+
+    @Override
+    protected boolean canHitEntity(Entity p_36743_) {
+        return true;
+    }
+
+    @Override
+    protected void onHitEntity(EntityHitResult hitResult) {
+        super.onHitEntity(hitResult);
+        hitResult.getEntity().setSecondsOnFire(8);
+        FireWork(hitResult.getEntity().blockPosition().above(),1);
+
     }
 
     public boolean setFire(BlockPos blockpos){
@@ -51,14 +85,14 @@ public class blazeRodEntity  extends rodEntity {
         return false;
     }
 
-    public void FireWork(BlockPos center){
-        BlockPos angle1=center.west(2).north(2);
-        BlockPos angle2=center.east(2).south(2);
+    public void FireWork(BlockPos center,int r){
+        BlockPos angle1=center.west(r).north(r);
+        BlockPos angle2=center.east(r).south(r);
         for (int i=angle1.getX(); i<=angle2.getX()-1;i++){
             for(int k=angle1.getZ(); k<=angle2.getZ()-1;k++){
                 BlockPos pos;
                 boolean fire=false;
-                int y=center.getY()+1;
+                int y=center.getY();
                 while (!fire){
                     pos = new BlockPos(i,y,k);
                     fire= setFire(pos);
@@ -68,4 +102,5 @@ public class blazeRodEntity  extends rodEntity {
         }
 
     }
+
 }

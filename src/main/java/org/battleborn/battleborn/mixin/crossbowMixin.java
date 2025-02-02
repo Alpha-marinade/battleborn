@@ -57,6 +57,9 @@ public class crossbowMixin extends ProjectileWeaponItem implements Vanishable {
         if (itemstack.is(Items.LIGHTNING_ROD)){
             cir.setReturnValue(1F);
         }
+        if (itemstack.is(Items.BLAZE_ROD)){
+            cir.setReturnValue(2F);
+        }
     }
 
     @Override
@@ -110,8 +113,6 @@ public class crossbowMixin extends ProjectileWeaponItem implements Vanishable {
                 Quaternionf quaternionf = (new Quaternionf()).setAngleAxis((double) (p_40904_ * ((float) Math.PI / 180F)), vec31.x, vec31.y, vec31.z);
                 Vec3 vec3 = p_40896_.getViewVector(1.0F);
                 Vector3f vector3f = vec3.toVector3f().rotate(quaternionf);
-                System.out.println( p_40902_);
-                System.out.println(p_40903_);
                 projectile.shoot((double) vector3f.x(), (double) vector3f.y(), (double) vector3f.z(), p_40902_, p_40903_);
             }
 
