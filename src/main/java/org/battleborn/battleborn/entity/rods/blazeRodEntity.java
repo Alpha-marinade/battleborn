@@ -63,7 +63,6 @@ public class blazeRodEntity  extends rodEntity {
                 fire=setFire(pos);
                 y++;
                 if(y-8==0){fire=true;}
-
             }
         }
 

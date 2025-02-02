@@ -32,6 +32,7 @@ public class lightningRodEntity extends rodEntity {
     public lightningRodEntity(Level level,double x, double y, double z) {
         super(EntityReg.LIGHTNING_ROD.get(),level);
         this.setPos(x,y,z);
+
         this.setDeltaMovement(this.random.triangle(0.0D, 0.002297D), 0.05D, this.random.triangle(0.0D, 0.002297D));
     }
 
@@ -71,5 +72,15 @@ public class lightningRodEntity extends rodEntity {
                     this.level().getRandom().nextFloat() * (0.3f - (-0.3f)) + blockPosition().getZ(),
                     0.2f, 0.2f, 0.2f);
         }
+    }
+    @Override
+    protected boolean canHitEntity(Entity entity) {
+        return !(entity instanceof lightningRodEntity);
+    }
+
+    @Override
+    protected void onHitEntity(EntityHitResult p_36757_) {
+        this.setBaseDamage(10d);
+        super.onHitEntity(p_36757_);
     }
 }

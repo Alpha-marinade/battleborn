@@ -9,6 +9,7 @@ import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.EntityHitResult;
 
 public class rodEntity extends AbstractArrow {
     private int hit;
@@ -43,7 +44,7 @@ public class rodEntity extends AbstractArrow {
 
     @Override
     protected boolean canHitEntity(Entity p_36743_) {
-        return false;
+        return true;
     }
     @Override
     public void tick() {
@@ -54,6 +55,7 @@ public class rodEntity extends AbstractArrow {
 
     }
     public void BeforeFirstHit(){
-
     }
+
+
 }
