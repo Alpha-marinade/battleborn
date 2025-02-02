@@ -25,7 +25,7 @@ import org.battleborn.battleborn.common.EntityReg;
 import javax.annotation.Nullable;
 import java.util.OptionalInt;
 
-public class lightningRodEntity extends AbstractArrow {
+public class lightningRodEntity extends rodEntity {
     public lightningRodEntity(EntityType<? extends AbstractArrow> pEntityType, Level level) {
         super(pEntityType, level);
     }
@@ -40,30 +40,15 @@ public class lightningRodEntity extends AbstractArrow {
         this.setOwner(owner);
 
     }
-    @Override
-    protected SoundEvent getDefaultHitGroundSoundEvent() {
-        return SoundEvents.TRIDENT_HIT_GROUND;
-    }
-
-    @Override
-    protected void defineSynchedData() {
-        super.defineSynchedData();
-    }
 
     @Override
     protected ItemStack getPickupItem() {
         return new ItemStack(Items.LIGHTNING_ROD);
     }
-
     @Override
-    protected boolean canHitEntity(Entity p_36743_) {
-        return false;
-    }
-
-    @Override
-    protected void onHit(HitResult result) {
+    public void onFirstBlockHit(BlockHitResult hitResult) {
+        super.onFirstBlockHit(hitResult);
         if(!this.level().isClientSide){
-            super.onHit(result);
             if(this.level().isRaining()){
                 Entity lightning = new LightningBolt(EntityType.LIGHTNING_BOLT, this.level());
                 if(!this.level().getBlockState(new BlockPos(blockPosition().getX(),blockPosition().getY()-1,blockPosition().getZ())).is(Tags.Blocks.GLASS)){
@@ -76,10 +61,9 @@ public class lightningRodEntity extends AbstractArrow {
             }
         }
     }
-
     @Override
-    public void tick() {
-        super.tick();
+    public void BeforeFirstHit() {
+        super.BeforeFirstHit();
         if(this.level().isRaining()) {
             this.level().addParticle(ParticleTypes.ELECTRIC_SPARK,
                     this.level().getRandom().nextFloat() * (0.3f - (-0.3f)) + blockPosition().getX(),
@@ -88,6 +72,4 @@ public class lightningRodEntity extends AbstractArrow {
                     0.2f, 0.2f, 0.2f);
         }
     }
-
-
 }
