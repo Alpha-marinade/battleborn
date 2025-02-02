@@ -54,11 +54,12 @@ public class blazeRodEntity  extends rodEntity {
             boolean fire=false;
             int y=0;
             while(!fire){
-                BlockPos pos=new BlockPos(this.blockPosition().getX(),this.blockPosition().getY()-y,this.blockPosition().getZ());
+                int d = random.nextInt(3) - 1;
+                BlockPos pos=new BlockPos(this.blockPosition().getX()+d,this.blockPosition().getY()-y,this.blockPosition().getZ()+d);
                 fire=setFire(pos);
                 y++;
                 if(y-8==0){fire=true;}
-                System.out.println(pos);
+
             }
         }
 

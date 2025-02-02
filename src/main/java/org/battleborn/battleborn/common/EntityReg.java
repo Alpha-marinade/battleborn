@@ -21,7 +21,7 @@ public class EntityReg {
 
     public static final RegistryObject<EntityType<blazeRodEntity>> BLAZE_ROD =
             ENTITY_TYPES.register("blaze_rod", () -> EntityType.Builder.<blazeRodEntity>of(blazeRodEntity::new, MobCategory.MISC).fireImmune()
-                    .sized(0.1f, 0.1f).build("blaze_rod"));
+                    .sized(0.5f, 0.5f).build("blaze_rod"));
 
 
     public static void register(IEventBus eventBus) {
