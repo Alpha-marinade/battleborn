@@ -35,7 +35,11 @@ public class blazeRodEntity  extends rodEntity {
     }
     @Override
     protected ItemStack getPickupItem() {
-        return new ItemStack(Items.BLAZE_POWDER);
+        int d = random.nextInt(2) ;
+        if(d==0){
+            return new ItemStack(Items.BLAZE_POWDER);
+        }
+        return new ItemStack(Items.BLAZE_ROD);
     }
 
     @Override
