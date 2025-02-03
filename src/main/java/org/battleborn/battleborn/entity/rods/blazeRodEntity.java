@@ -80,7 +80,9 @@ public class blazeRodEntity  extends rodEntity {
     }
 
     public boolean setFire(BlockPos blockpos){
-        if (!this.level().getBlockState(blockpos.below()).isAir()){
+        if (!this.level().getBlockState(blockpos.below()).isAir()&&
+                !this.level().getBlockState(blockpos.below()).is(Blocks.FIRE)&&
+                !this.level().getBlockState(blockpos.below()).is(Blocks.WATER)){
             if (this.level().getBlockState(blockpos).isAir()){
                 this.level().setBlockAndUpdate(blockpos,Blocks.FIRE.defaultBlockState());
             }
