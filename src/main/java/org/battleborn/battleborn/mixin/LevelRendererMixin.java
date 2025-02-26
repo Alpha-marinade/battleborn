@@ -12,7 +12,8 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 public class LevelRendererMixin {
     @Redirect(method = "renderSky", at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/systems/RenderSystem;setShaderTexture(ILnet/minecraft/resources/ResourceLocation;)V", ordinal = 0))
     private void celesteConfig$scaleSun(int p_157457_, ResourceLocation p_157458_) {
-        RenderSystem.setShaderTexture(p_157457_,sunTextureManager.getSunTexture());
+       // RenderSystem.setShaderTexture(p_157457_,sunTextureManager.getSunTexture());
+        sunTextureManager.sunAnimate();
 
 
     }
