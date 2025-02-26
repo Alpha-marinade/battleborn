@@ -35,6 +35,7 @@ import net.minecraftforge.registries.RegistryObject;
 import org.battleborn.battleborn.common.EntityReg;
 import org.battleborn.battleborn.entity.client.BlazeRodRenderer;
 import org.battleborn.battleborn.entity.client.LightningRodRenderer;
+import org.battleborn.battleborn.wip.sunTextureManager;
 import org.slf4j.Logger;
 
 // The value here should match an entry in the META-INF/mods.toml file
@@ -121,6 +122,7 @@ public class Battleborn {
                             return CrossbowItem.isCharged(stack) && CrossbowItem.containsChargedProjectile(stack, Items.BLAZE_ROD) ? 1.0F : 0.0F;
                         });
             });
+            sunTextureManager.init();
         }
     }
 }

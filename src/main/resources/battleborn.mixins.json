@@ -8,6 +8,7 @@
     "crossbowMixin"
   ],
   "client": [
+    "LevelRendererMixin"
   ],
   "injectors": {
     "defaultRequire": 1
